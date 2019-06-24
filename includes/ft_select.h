@@ -14,18 +14,6 @@
 # define ERROR -1
 # define SUCCESS 0
 
-// # define RED_COLOR 		"\033[0;31m"
-// # define GREEN_COLOR 	"\033[0;32m"
-// # define YELLOW_COLOR 	"\033[0;33m"
-// # define BYELLOW_COLOR	"\033[1;33m"
-// # define BLUE_COLOR 	"\033[1;34m"
-// # define BBLUE_COLOR	"\033[1;34m"
-// # define MAGENTA_COLOR	"\033[0;35m"
-// # define BMANGETA_COLOR	"\033[1;35m"
-// # define CYAN_COLOR		"\033[0;36m"
-// # define BCYAN_COLOR	"\033[1;36m"
-// # define RESET			"\033[0m"
-
 # define OPT_RED (1 << 1)
 # define OPT_GREEN (1 << 2)
 # define OPT_YELLOW (1 << 3)

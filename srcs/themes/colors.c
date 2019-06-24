@@ -4,7 +4,7 @@ static void
 print_color(int options) {
 	if ((options & OPT_RED) == OPT_RED)
 		return ft_putstr("31m");
-	if ((options & OPT_GREEN) == OPT_GREEN);
+	if ((options & OPT_GREEN) == OPT_GREEN)
 		return ft_putstr("32m");
 	if ((options & OPT_YELLOW) == OPT_YELLOW)
 		return ft_putstr("33m");
@@ -25,14 +25,14 @@ print_weight(int options) {
 		return ft_putstr("[3;");
 	if ((options & OPT_UNDERLINE) == OPT_UNDERLINE)
 		return ft_putstr("[4;");
-	ft_putstr("[0;");
+	ft_putstr("[");
 }
 
 void
 display_color(int opts) {
 	if (!opts)
 		return ;
-	ft_putstr("\033");
+	ft_putchar('\033');
 	print_weight(opts);
 	print_color(opts);
 }
@@ -60,5 +60,9 @@ get_colors(char *filename, int index) {
 		opts |= OPT_UNDERLINE;
 	if (ext && !ft_strcmp(ext, "c"))
 		opts |= OPT_YELLOW;
+	if (ext && !ft_strcmp(ext, "o"))
+		opts |= OPT_MAGENTA;
+	if (ext && !ft_strcmp(ext, "h"))
+		opts |= OPT_CYAN;
 	return (opts);
 }
