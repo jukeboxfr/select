@@ -52,29 +52,33 @@ set_grid(struct winsize *w, t_grid *grid)
 	}
 }
 
-static void
-print_filename(char *filename, int padding)
-{
-	ft_putstr(filename);
-	padding -= ft_strlen(filename);
-	if (padding < 0)
-		ft_putchar('\n');
-	while (padding-- > 0)
-		ft_putchar(' ');
-}
-
 void
 display_files(void) {
 	t_grid	grid;
 	struct 	winsize w;
 	int		index;
+	int 	colors;
+	int 	padding;
 
 	ioctl(0, TIOCGWINSZ, &w);
 	set_grid(&w, &grid);
 	index = 0;
 	while (index < g_term.argc)
 	{
-		print_filename(g_term.argv[index], ((index + 1) % grid.cols) ? grid.padding : -1);
+		colors = get_colors(g_term.argv[index], index);
+		display_color(colors);
+		ft_putstr(g_term.argv[index]);
+		if (colors)
+			ft_putstr("\033[0m");
+		padding = grid.padding - ft_strlen(g_term.argv[index]);
 		index++;
+
+		if (index == g_term.argc
+			|| !((index + 1) % grid.cols)) {
+			ft_putchar('\n');
+			continue ;
+		}
+		while (padding-- > 0)
+			ft_putchar(' ');
 	}
 }

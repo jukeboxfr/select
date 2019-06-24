@@ -1,17 +1,18 @@
 #include "ft_select.h"
 
 static void
-interrupt_program(void) {
+stop(int sig) {
+	ft_putstr("\033[?1049l");
 	exit(EXIT_SUCCESS);
 }
 
 static void
 listen_signals(void) {
-	// signal(SIGINT, interrupt);
-	// signal(SIGABRT, interrupt);
-	// signal(SIGSTOP, interrupt);
-	// signal(SIGKILL, interrupt);
-	// signal(SIGQUIT, interrupt);
+	signal(SIGINT, stop);
+	signal(SIGABRT, stop);
+	signal(SIGSTOP, stop);
+	signal(SIGKILL, stop);
+	signal(SIGQUIT, stop);
 }
 
 static int
@@ -33,7 +34,6 @@ init_term(void) {
 
 int
 main(int argc, char *argv[]) {
-
 	if (argc < 2)
 	{
 		ft_putstr("Usage: file1 [file2...]\n");
@@ -41,8 +41,13 @@ main(int argc, char *argv[]) {
 	}
 	if (init_term() < 0)
 		return (1);
+	ft_memset(&g_term, 0, sizeof(g_term));
 	g_term.argc = argc - 1;
 	g_term.argv = argv + 1;
+	ft_putstr("\033[?1049h\033[H");
 	display_files();
+	listen_signals();
+	while (1)
+		;
 	return (0);
 }
