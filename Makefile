@@ -17,7 +17,7 @@ ODIR = obj/
 SDIR = srcs/
 INCLUDES = -I ./includes -I $(LDIR)includes
 CFLAGS = -g -Wall -Werror -Wextra
-FILES = main.c
+FILES = main.c ft_select.c display.c
 SRCS = $(addprefix $(SDIR), $(FILES))
 OBJS = $(addprefix $(ODIR), $(FILES:.c=.o))
 
@@ -25,7 +25,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(LDIR)
-	@$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) -L $(LDIR) -lft -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) -L $(LDIR) -lft -ltermcap -o $(NAME)
 
 $(ODIR)%.o: $(SDIR)%.c
 	@mkdir -p $(shell dirname $@)
