@@ -30,6 +30,7 @@
 # define OPT_BOLD (1 << 8)
 # define OPT_ITALIC (1 << 9)
 
+# define SPACE_KEY 	32
 # define ESCAPE_KEY	27
 # define ENTER_KEY	10
 # define BACKSPACE_KEY 	127

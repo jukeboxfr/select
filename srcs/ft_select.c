@@ -34,13 +34,18 @@ void			move_cursor(long key)
 		&& g_term.cursor - 1 < g_term.argc)
 		g_term.cursor--;
 	if (key == TOP_KEY
+		&& g_term.cursor - g_term.grid.cols >= 0)
+		g_term.cursor -= g_term.grid.cols;
+	if (key == DOWN_KEY
 		&& g_term.cursor + g_term.grid.cols < g_term.argc)
 		g_term.cursor += g_term.grid.cols;
-	if (key == TOP_KEY
-		&& g_term.cursor - g_term.grid.cols > 0)
-		g_term.cursor -= g_term.grid.cols;
 	clear();
 	display_files();
+}
+
+void			select(void)
+{
+	move_cursor(RIGHT_KEY);
 }
 
 void			ft_select(void)
@@ -58,5 +63,7 @@ void			ft_select(void)
 		if (key == LEFT_KEY || key == RIGHT_KEY
 			|| key == TOP_KEY || key == DOWN_KEY)
 			move_cursor(key);
+		if (key == SPACE_KEY)
+			select();
 	}
 }
