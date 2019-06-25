@@ -17,8 +17,9 @@ listen_signals(void) {
 
 static int
 init_term(void) {
-	char	*var;
-	int 	code;
+	char			*var;
+	int 			code;
+	struct termios	term;
 
 	if (!(var = getenv("TERM")))
 	{
@@ -29,6 +30,12 @@ init_term(void) {
 		ft_putstr(code ? "Unable to read database\n" : "Le type de terminal spécifié est introuvable\n");
 		return (ERROR);
 	}
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ICANON | ECHO);
+    term.c_lflag &= ~(OPOST);
+	term.c_cc[VMIN] = 1;
+	term.c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &term);
 	return (SUCCESS);
 }
 
@@ -47,7 +54,6 @@ main(int argc, char *argv[]) {
 	ft_putstr("\033[?1049h\033[H");
 	display_files();
 	listen_signals();
-	while (1)
-		;
+	ft_select();
 	return (0);
 }

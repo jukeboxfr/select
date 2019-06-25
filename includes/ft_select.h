@@ -7,9 +7,14 @@
 
 #include <signal.h>
 
+#include <termios.h>
+#include <unistd.h> // tcgetattr
+
 #include <stdio.h> // Debug
 
 #include "libft.h"
+
+# define BUFF_SIZE 4096
 
 # define ERROR -1
 # define SUCCESS 0
@@ -25,6 +30,15 @@
 # define OPT_BOLD (1 << 8)
 # define OPT_ITALIC (1 << 9)
 
+# define ESCAPE_KEY	27
+# define ENTER_KEY	10
+# define TAB_KEY 	127
+
+# define LEFT_KEY 	4479771
+# define RIGHT_KEY 	4414235
+# define TOP_KEY 	4283163
+# define DOWN_KEY 4348699
+
 typedef struct		s_grid {
 	int		rows;
 	int		cols;
@@ -32,15 +46,15 @@ typedef struct		s_grid {
 }					t_grid;
 
 typedef struct 		s_term {
-	int 	cursor;
-	int 	argc;
-	char 	**argv;
+	int 			cursor;
+	int 			argc;
+	char 			**argv;
 }					t_term;
 
 t_term 			g_term;
 
 void
-ft_select(t_term *term, int argc, char **argv);
+ft_select(void);
 void
 display_files(void);
 

@@ -1,9 +1,13 @@
 #include "ft_select.h"
 
-void 	exec(char *str) {
-	char 	*chars;
+void			ft_select(void)
+{
+	long key;
 
-	if (!(chars = tgetstr(str, NULL)))
-		return (NULL);
-	tputs(chars, 1, ft_putchar);
+	while (42)
+	{
+		key = 0;
+		read(STDIN_FILENO, &key, 8);
+		printf("La clée est %i\n", key);
+	}
 }

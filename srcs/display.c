@@ -74,7 +74,7 @@ display_files(void) {
 		index++;
 
 		if (index == g_term.argc
-			|| !((index + 1) % grid.cols)) {
+			|| !(index % grid.cols)) {
 			ft_putchar('\n');
 			continue ;
 		}
