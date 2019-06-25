@@ -32,7 +32,8 @@
 
 # define ESCAPE_KEY	27
 # define ENTER_KEY	10
-# define TAB_KEY 	127
+# define BACKSPACE_KEY 	127
+# define DELETE_KEY 	2117294875L
 
 # define LEFT_KEY 	4479771
 # define RIGHT_KEY 	4414235
@@ -49,9 +50,13 @@ typedef struct 		s_term {
 	int 			cursor;
 	int 			argc;
 	char 			**argv;
+	struct termios	term;
 }					t_term;
 
 t_term 			g_term;
+
+void
+stop(int sig);
 
 void
 ft_select(void);

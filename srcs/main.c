@@ -1,8 +1,9 @@
 #include "ft_select.h"
 
-static void
+void
 stop(int sig) {
 	ft_putstr("\033[?1049l");
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_term.term);
 	exit(EXIT_SUCCESS);
 }
 
@@ -30,6 +31,7 @@ init_term(void) {
 		ft_putstr(code ? "Unable to read database\n" : "Le type de terminal spécifié est introuvable\n");
 		return (ERROR);
 	}
+	tcgetattr(STDIN_FILENO, &g_term.term);
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ICANON | ECHO);
     term.c_lflag &= ~(OPOST);
