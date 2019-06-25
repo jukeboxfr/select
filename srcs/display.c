@@ -1,20 +1,20 @@
 #include "ft_select.h"
 
 static int
-check_grid(int width, t_grid *grid)
+check_grid(int width)
 {
 	int	i;
 	int	j;
 
 	j = 0;
-	grid->cols = 0;
+	g_term.grid.cols = 0;
 	while (j < g_term.argc)
 	{
-		if ((width = width - grid->padding) < 0)
+		if ((width = width - g_term.grid.padding) < 0)
 			return (0);
-		grid->cols++;
+		g_term.grid.cols++;
 		i = 0;
-		while (j < g_term.argc && i++ < grid->rows)
+		while (j < g_term.argc && i++ < g_term.grid.rows)
 			j++;
 	}
 	return (width >= 0);
@@ -40,28 +40,29 @@ get_column_width(void)
 }
 
 static void
-set_grid(struct winsize *w, t_grid *grid)
+update_grid()
 {
-	grid->padding = get_column_width();
-	grid->rows = 1;
-	while (grid->rows <= g_term.argc)
+	struct 	winsize w;
+
+	ft_memset(&g_term.grid, '\0', sizeof(g_term.grid));
+	ioctl(0, TIOCGWINSZ, &w);
+	g_term.grid.padding = get_column_width();
+	g_term.grid.rows = 1;
+	while (g_term.grid.rows <= g_term.argc)
 	{
-		if (check_grid(w->ws_col, grid))
+		if (check_grid(w.ws_col))
 			break ;
-		grid->rows++;
+		g_term.grid.rows++;
 	}
 }
 
 void
 display_files(void) {
-	t_grid	grid;
-	struct 	winsize w;
 	int		index;
 	int 	colors;
 	int 	padding;
 
-	ioctl(0, TIOCGWINSZ, &w);
-	set_grid(&w, &grid);
+	update_grid();
 	index = 0;
 	while (index < g_term.argc)
 	{
@@ -70,11 +71,11 @@ display_files(void) {
 		ft_putstr(g_term.argv[index]);
 		if (colors)
 			ft_putstr("\033[0m");
-		padding = grid.padding - ft_strlen(g_term.argv[index]);
+		padding = g_term.grid.padding - ft_strlen(g_term.argv[index]);
 		index++;
 
 		if (index == g_term.argc
-			|| !(index % grid.cols)) {
+			|| !(index % g_term.grid.cols)) {
 			ft_putchar('\n');
 			continue ;
 		}

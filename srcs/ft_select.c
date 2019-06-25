@@ -25,6 +25,24 @@ remove_args(void)
 	display_files();
 }
 
+void			move_cursor(long key)
+{
+	if (key == RIGHT_KEY
+		&& g_term.cursor + 1 < g_term.argc)
+		g_term.cursor++;
+	if (key == LEFT_KEY
+		&& g_term.cursor - 1 < g_term.argc)
+		g_term.cursor--;
+	if (key == TOP_KEY
+		&& g_term.cursor + g_term.grid.cols < g_term.argc)
+		g_term.cursor += g_term.grid.cols;
+	if (key == TOP_KEY
+		&& g_term.cursor - g_term.grid.cols > 0)
+		g_term.cursor -= g_term.grid.cols;
+	clear();
+	display_files();
+}
+
 void			ft_select(void)
 {
 	long key;
@@ -33,9 +51,12 @@ void			ft_select(void)
 	{
 		key = 0;
 		read(STDIN_FILENO, &key, 8);
+		if (!g_term.argc || key == ESCAPE_KEY)
+			stop(0);
 		if (key == DELETE_KEY || key == BACKSPACE_KEY)
 			remove_args();
-		if (key == ESCAPE_KEY)
-			stop(0);
+		if (key == LEFT_KEY || key == RIGHT_KEY
+			|| key == TOP_KEY || key == DOWN_KEY)
+			move_cursor(key);
 	}
 }

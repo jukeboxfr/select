@@ -3,7 +3,7 @@
 void
 stop(int sig) {
 	ft_putstr("\033[?1049l");
-	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_term.term);
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_term.term);
 	exit(EXIT_SUCCESS);
 }
 

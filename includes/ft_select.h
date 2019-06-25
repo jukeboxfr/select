@@ -50,6 +50,7 @@ typedef struct 		s_term {
 	int 			cursor;
 	int 			argc;
 	char 			**argv;
+	t_grid			grid;
 	struct termios	term;
 }					t_term;
 
