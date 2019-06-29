@@ -38,6 +38,24 @@ void			move_cursor(long key)
 	display_files();
 }
 
+static void			print_selected(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < g_term.argc)
+	{
+		if (is_selected(i))
+		{
+			ft_putstr(g_term.argv[i]);
+			if ((i + 1) < g_term.argc)
+				ft_putchar(' ');
+		}
+		i++;
+	}
+	stop(0);
+}
+
 void			ft_select(void)
 {
 	long key;
@@ -55,5 +73,7 @@ void			ft_select(void)
 			move_cursor(key);
 		if (key == SPACE_KEY)
 			on_select();
+		if (key == ENTER_KEY)
+			print_selected();
 	}
 }

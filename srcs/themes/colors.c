@@ -48,7 +48,7 @@ void			display_color(int opts)
 {
 	if (!opts)
 		return ;
-	ft_putchar('\033');
+	ft_putchar('\e');
 	print_weight(opts);
 	print_color(opts);
 }

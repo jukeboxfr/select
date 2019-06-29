@@ -12,7 +12,7 @@
 
 #include "ft_select.h"
 
-static int			is_selected(int index)
+int			is_selected(int index)
 {
 	int		i;
 
@@ -95,5 +95,6 @@ void				remove_args(void)
 void				on_select(void)
 {
 	is_selected(g_term.cursor) ? deselect_file(g_term.cursor) : select_file();
-	move_cursor(RIGHT_KEY);
+	clear();
+	display_files();
 }

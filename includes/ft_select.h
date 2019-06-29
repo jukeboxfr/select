@@ -73,6 +73,7 @@ typedef struct		s_term {
 
 t_term				g_term;
 
+int					is_selected(int index);
 void				move_cursor(long key);
 void				remove_args(void);
 void				on_select(void);
