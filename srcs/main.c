@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 14:13:31 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/29 14:18:08 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/29 16:58:21 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void			stop(int sig)
 {
+	if (g_term.selected)
+		free(g_term.selected);
 	ft_putstr("\033[?1049l");
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_term.term);
 	exit(EXIT_SUCCESS);

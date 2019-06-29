@@ -17,7 +17,7 @@ ODIR = obj/
 SDIR = srcs/
 INCLUDES = -I ./includes -I $(LDIR)includes
 CFLAGS = -g -Wall -Werror -Wextra
-FILES = main.c ft_select.c display.c themes/colors.c
+FILES = main.c ft_select.c display.c helpers.c themes/colors.c
 SRCS = $(addprefix $(SDIR), $(FILES))
 OBJS = $(addprefix $(ODIR), $(FILES:.c=.o))
 

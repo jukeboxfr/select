@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 14:18:20 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/29 14:20:17 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/29 16:59:07 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,20 @@ static void		update_grid(void)
 	}
 }
 
+void
+debugger(void) {
+	printf("[+] Cursor: %i\n", g_term.cursor);
+	printf("[+] Selected (%i): ", g_term.count);
+
+	int	i = 0;
+	while (i < g_term.count) {
+		printf("%i ", g_term.selected[i]);
+		i++;
+	}
+	printf("\n");
+	fflush(stdout);
+}
+
 void			display_files(void)
 {
 	int		index;
@@ -91,4 +105,5 @@ void			display_files(void)
 		while (padding-- > 0)
 			ft_putchar(' ');
 	}
+	debugger();
 }

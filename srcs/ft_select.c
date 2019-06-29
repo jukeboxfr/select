@@ -20,21 +20,6 @@ void			clear(void)
 	tputs(cl_cap, 1, ft_putchar);
 }
 
-void			remove_args(void)
-{
-	int	i;
-
-	i = g_term.cursor;
-	while (i < g_term.argc)
-	{
-		g_term.argv[i] = g_term.argv[i + 1];
-		i++;
-	}
-	clear();
-	g_term.argc--;
-	display_files();
-}
-
 void			move_cursor(long key)
 {
 	if (key == RIGHT_KEY
@@ -53,11 +38,6 @@ void			move_cursor(long key)
 	display_files();
 }
 
-void			select_file(void)
-{
-	move_cursor(RIGHT_KEY);
-}
-
 void			ft_select(void)
 {
 	long key;
@@ -74,6 +54,6 @@ void			ft_select(void)
 			|| key == TOP_KEY || key == DOWN_KEY)
 			move_cursor(key);
 		if (key == SPACE_KEY)
-			select_file();
+			on_select();
 	}
 }

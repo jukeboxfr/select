@@ -14,6 +14,8 @@
 
 static void		print_color(int options)
 {
+	if ((options & OPT_RE_SCREEN) == OPT_RE_SCREEN)
+		return (ft_putstr("4m"));
 	if ((options & OPT_RED) == OPT_RED)
 		return (ft_putstr("31m"));
 	if ((options & OPT_GREEN) == OPT_GREEN)
@@ -31,6 +33,8 @@ static void		print_color(int options)
 
 static void		print_weight(int options)
 {
+	if ((options & OPT_RE_SCREEN) == OPT_RE_SCREEN)
+		return (ft_putstr("[31;"));
 	if ((options & OPT_BOLD) == OPT_BOLD)
 		return (ft_putstr("[1;"));
 	if ((options & OPT_ITALIC) == OPT_ITALIC)
@@ -65,8 +69,16 @@ int				get_colors(char *filename, int index)
 {
 	char	*ext;
 	int		opts;
+	int		i;
 
 	opts = 0;
+	i = 0;
+	while (i < g_term.count)
+	{
+		if (g_term.selected[i] == index)
+			opts |= OPT_RE_SCREEN;
+		i++;
+	}
 	ext = get_ext(filename);
 	if (g_term.cursor == index)
 		opts |= OPT_UNDERLINE;

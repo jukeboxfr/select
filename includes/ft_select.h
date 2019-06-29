@@ -42,6 +42,8 @@
 # define OPT_BOLD (1 << 8)
 # define OPT_ITALIC (1 << 9)
 
+# define OPT_RE_SCREEN (1 << 10)
+
 # define SPACE_KEY 32
 # define ESCAPE_KEY 27
 # define ENTER_KEY 10
@@ -60,6 +62,8 @@ typedef struct		s_grid {
 }					t_grid;
 
 typedef struct		s_term {
+	int				count;
+	int				*selected;
 	int				cursor;
 	int				argc;
 	char			**argv;
@@ -68,6 +72,10 @@ typedef struct		s_term {
 }					t_term;
 
 t_term				g_term;
+
+void				move_cursor(long key);
+void				remove_args(void);
+void				on_select(void);
 
 void				stop(int sig);
 
