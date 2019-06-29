@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_select.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/29 14:24:44 by kesaint-          #+#    #+#             */
+/*   Updated: 2019/06/29 14:26:57 by kesaint-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_SELECT_H
 # define FT_SELECT_H
 
-#include <stdlib.h>
-#include <termcap.h>
-#include <sys/ioctl.h>
+# include <stdlib.h>
+# include <termcap.h>
+# include <sys/ioctl.h>
 
-#include <signal.h>
+# include <signal.h>
 
-#include <termios.h>
-#include <unistd.h> // tcgetattr
+# include <termios.h>
+# include <unistd.h>
 
-#include <stdio.h> // Debug
+# include <stdio.h>
 
-#include "libft.h"
+# include "libft.h"
 
 # define BUFF_SIZE 4096
 
@@ -30,44 +42,39 @@
 # define OPT_BOLD (1 << 8)
 # define OPT_ITALIC (1 << 9)
 
-# define SPACE_KEY 	32
-# define ESCAPE_KEY	27
-# define ENTER_KEY	10
-# define BACKSPACE_KEY 	127
-# define DELETE_KEY 	2117294875L
+# define SPACE_KEY 32
+# define ESCAPE_KEY 27
+# define ENTER_KEY 10
+# define BACKSPACE_KEY 127
+# define DELETE_KEY 2117294875L
 
-# define LEFT_KEY 	4479771
-# define RIGHT_KEY 	4414235
-# define TOP_KEY 	4283163
+# define LEFT_KEY 4479771
+# define RIGHT_KEY 4414235
+# define TOP_KEY 4283163
 # define DOWN_KEY 4348699
 
 typedef struct		s_grid {
 	int		rows;
 	int		cols;
-	int 	padding;
+	int		padding;
 }					t_grid;
 
-typedef struct 		s_term {
-	int 			cursor;
-	int 			argc;
-	char 			**argv;
+typedef struct		s_term {
+	int				cursor;
+	int				argc;
+	char			**argv;
 	t_grid			grid;
 	struct termios	term;
 }					t_term;
 
-t_term 			g_term;
+t_term				g_term;
 
-void
-stop(int sig);
+void				stop(int sig);
 
-void
-ft_select(void);
-void
-display_files(void);
+void				ft_select(void);
+void				display_files(void);
 
-int
-get_colors(char *filename, int index);
-void
-display_color(int opts);
+int					get_colors(char *filename, int index);
+void				display_color(int opts);
 
 #endif

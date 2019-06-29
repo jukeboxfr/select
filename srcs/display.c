@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/29 14:18:20 by kesaint-          #+#    #+#             */
+/*   Updated: 2019/06/29 14:20:17 by kesaint-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
-static int
-check_grid(int width)
+static int		check_grid(int width)
 {
 	int	i;
 	int	j;
@@ -20,8 +31,7 @@ check_grid(int width)
 	return (width >= 0);
 }
 
-static int
-get_column_width(void)
+static int		get_column_width(void)
 {
 	int		width;
 	int		column_width;
@@ -39,10 +49,9 @@ get_column_width(void)
 	return (column_width + 1);
 }
 
-static void
-update_grid()
+static void		update_grid(void)
 {
-	struct 	winsize w;
+	struct winsize		w;
 
 	ft_memset(&g_term.grid, '\0', sizeof(g_term.grid));
 	ioctl(0, TIOCGWINSZ, &w);
@@ -56,11 +65,11 @@ update_grid()
 	}
 }
 
-void
-display_files(void) {
+void			display_files(void)
+{
 	int		index;
-	int 	colors;
-	int 	padding;
+	int		colors;
+	int		padding;
 
 	update_grid();
 	index = 0;
@@ -73,9 +82,9 @@ display_files(void) {
 			ft_putstr("\033[0m");
 		padding = g_term.grid.padding - ft_strlen(g_term.argv[index]);
 		index++;
-
 		if (index == g_term.argc
-			|| !(index % g_term.grid.cols)) {
+			|| !(index % g_term.grid.cols))
+		{
 			ft_putchar('\n');
 			continue ;
 		}

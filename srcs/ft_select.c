@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_select.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/29 14:20:54 by kesaint-          #+#    #+#             */
+/*   Updated: 2019/06/29 14:20:56 by kesaint-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
-void
-clear(void)
+void			clear(void)
 {
 	char *cl_cap;
 
@@ -9,8 +20,7 @@ clear(void)
 	tputs(cl_cap, 1, ft_putchar);
 }
 
-void
-remove_args(void)
+void			remove_args(void)
 {
 	int	i;
 
@@ -43,7 +53,7 @@ void			move_cursor(long key)
 	display_files();
 }
 
-void			select(void)
+void			select_file(void)
 {
 	move_cursor(RIGHT_KEY);
 }
@@ -64,6 +74,6 @@ void			ft_select(void)
 			|| key == TOP_KEY || key == DOWN_KEY)
 			move_cursor(key);
 		if (key == SPACE_KEY)
-			select();
+			select_file();
 	}
 }
