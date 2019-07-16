@@ -12,29 +12,34 @@
 
 #include "ft_select.h"
 
-void			clear(void)
+void			stop(int sig)
 {
-	char *cl_cap;
-
-	cl_cap = tgetstr("cl", NULL);
-	tputs(cl_cap, 1, ft_putchar);
+	if (g_term.selected)
+		free(g_term.selected);
+	reset_terminal();
+	exit(EXIT_SUCCESS);
 }
 
-void			move_cursor(long key)
+
+
+void		move_cursor(long key)
 {
-	if (key == RIGHT_KEY
-		&& g_term.cursor + 1 < g_term.argc)
-		g_term.cursor++;
-	if (key == LEFT_KEY
-		&& g_term.cursor - 1 < g_term.argc)
-		g_term.cursor--;
-	if (key == TOP_KEY
-		&& g_term.cursor - g_term.grid.cols >= 0)
-		g_term.cursor -= g_term.grid.cols;
-	if (key == DOWN_KEY
-		&& g_term.cursor + g_term.grid.cols < g_term.argc)
-		g_term.cursor += g_term.grid.cols;
-	clear();
+	int		items;
+
+	items = g_term.grid.cols * g_term.grid.rows;
+	if (key == RIGHT_KEY)
+		g_term.cursor = g_term.cursor + 1 < g_term.argc
+			? (g_term.cursor + 1) : 0;
+	if (key == LEFT_KEY)
+		g_term.cursor = g_term.cursor - 1 > -1
+			? (g_term.cursor - 1) : g_term.argc - 1;
+	if (key == TOP_KEY)
+		g_term.cursor -= g_term.cursor - g_term.grid.cols > -1
+			? g_term.grid.cols : 0;
+	if (key == DOWN_KEY)
+		g_term.cursor = g_term.cursor + g_term.grid.cols < g_term.argc
+			? (g_term.cursor + g_term.grid.cols) : (g_term.argc - g_term.cursor);
+	clear_terminal();
 	display_files();
 }
 
@@ -58,7 +63,7 @@ static void			print_selected(void)
 
 void			ft_select(void)
 {
-	long key;
+	long	key;
 
 	while (42)
 	{

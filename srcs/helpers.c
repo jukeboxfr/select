@@ -87,7 +87,7 @@ void				remove_args(void)
 		g_term.argv[i] = g_term.argv[i + 1];
 		i++;
 	}
-	clear();
+	clear_terminal();
 	g_term.argc--;
 	display_files();
 }
@@ -95,6 +95,6 @@ void				remove_args(void)
 void				on_select(void)
 {
 	is_selected(g_term.cursor) ? deselect_file(g_term.cursor) : select_file();
-	clear();
+	clear_terminal();
 	display_files();
 }

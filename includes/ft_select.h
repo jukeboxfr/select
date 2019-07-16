@@ -73,6 +73,12 @@ typedef struct		s_term {
 
 t_term				g_term;
 
+void				listen_signals(void);
+
+void				clear_terminal(void);
+int					set_terminal(void);
+int					reset_terminal(void);
+
 int					is_selected(int index);
 void				move_cursor(long key);
 void				remove_args(void);

@@ -45,6 +45,7 @@ int				ft_isdigit(int c);
 int				ft_isprint(int c);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 void			ft_memdel(void **ap);
+int				ft_putc(int c);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putendl(char const *s);
 void			ft_putendl_fd(char const *s, int fd);
