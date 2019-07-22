@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 14:20:54 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/29 14:20:56 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/22 16:24:26 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void			stop(int sig)
 	exit(EXIT_SUCCESS);
 }
 
-
-
-void		move_cursor(long key)
+void			move_cursor(long key)
 {
 	int		items;
 
@@ -38,12 +36,13 @@ void		move_cursor(long key)
 			? g_term.grid.cols : 0;
 	if (key == DOWN_KEY)
 		g_term.cursor = g_term.cursor + g_term.grid.cols < g_term.argc
-			? (g_term.cursor + g_term.grid.cols) : (g_term.argc - g_term.cursor);
+			? (g_term.cursor + g_term.grid.cols)
+			: (g_term.argc - g_term.cursor);
 	clear_terminal();
 	display_files();
 }
 
-static void			print_selected(void)
+static void		print_selected(void)
 {
 	int	i;
 

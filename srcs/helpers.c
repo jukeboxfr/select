@@ -6,13 +6,13 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 16:57:15 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/29 16:58:48 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/22 16:21:47 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int			is_selected(int index)
+int					is_selected(int index)
 {
 	int		i;
 
@@ -78,6 +78,7 @@ static void			deselect_file(int index)
 void				remove_args(void)
 {
 	int	i;
+	int	j;
 
 	if (is_selected(g_term.cursor))
 		deselect_file(g_term.cursor);
@@ -87,8 +88,17 @@ void				remove_args(void)
 		g_term.argv[i] = g_term.argv[i + 1];
 		i++;
 	}
+	j = 0;
+	while (j < g_term.count)
+	{
+		if (g_term.selected[j] > g_term.cursor)
+			g_term.selected[j] -= 1;
+		j++;
+	}
 	clear_terminal();
 	g_term.argc--;
+	if (g_term.cursor > (g_term.argc - 1))
+		g_term.cursor = g_term.argc - 1;
 	display_files();
 }
 

@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   terminal.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/22 16:20:05 by kesaint-          #+#    #+#             */
+/*   Updated: 2019/07/22 16:20:19 by kesaint-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
 void	clear_terminal(void)
 {
-	char *str;
+	char		*str;
 
 	str = tgetstr("cl", NULL);
 	tputs(str, 1, ft_putc);
@@ -18,7 +30,7 @@ int		reset_terminal(void)
 int		set_terminal(void)
 {
 	struct termios	term;
-	char 			*var;
+	char			*var;
 
 	if (!(var = getenv("TERM")))
 	{
@@ -40,4 +52,3 @@ int		set_terminal(void)
 	tputs(tgetstr("vi", NULL), 1, ft_putc);
 	return (SUCCESS);
 }
-
