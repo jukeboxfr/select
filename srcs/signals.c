@@ -12,6 +12,12 @@
 
 #include "ft_select.h"
 
+static void	resizeHandler(int sig)
+{
+	clear_terminal();
+	display_files();
+}
+
 void		listen_signals(void)
 {
 	signal(SIGINT, stop);
@@ -19,4 +25,5 @@ void		listen_signals(void)
 	signal(SIGSTOP, stop);
 	signal(SIGKILL, stop);
 	signal(SIGQUIT, stop);
+	signal(SIGWINCH, resizeHandler);
 }

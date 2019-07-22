@@ -97,7 +97,7 @@ void			display_files(void)
 		padding = g_term.grid.padding - ft_strlen(g_term.argv[index]);
 		index++;
 		if (index == g_term.argc
-			|| !(index % g_term.grid.cols))
+			|| !(!g_term.grid.cols || (index % g_term.grid.cols)))
 		{
 			ft_putchar('\n');
 			continue ;
