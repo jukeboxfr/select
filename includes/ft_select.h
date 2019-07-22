@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 14:24:44 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/29 14:26:57 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/22 16:27:37 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void				listen_signals(void);
 
 void				clear_terminal(void);
 int					set_terminal(void);
-int					reset_terminal(void);
+void				reset_terminal(void);
 
 int					is_selected(int index);
 void				move_cursor(long key);

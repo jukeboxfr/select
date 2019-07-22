@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:20:05 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/22 16:20:19 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/22 16:27:15 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	clear_terminal(void)
 	tputs(str, 1, ft_putc);
 }
 
-int		reset_terminal(void)
+void	reset_terminal(void)
 {
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_term.term);
 	tputs(tgetstr("ve", NULL), 1, ft_putc);
