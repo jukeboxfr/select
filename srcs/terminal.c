@@ -9,9 +9,9 @@ void	clear_terminal(void)
 }
 void	reset_terminal(void)
 {
-	tcsetattr(STDIN_FILENO, TCSANOW, &g_term.term);
 	tputs(tgetstr("ve", NULL), 1, ft_putc);
-	tputs(tgetstr("te", NULL), 1, ft_putc);
+	g_term.term.c_lflag |= (ICANON | ECHO);
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_term.term);
 }
 
 int		set_terminal(void)
@@ -35,7 +35,6 @@ int		set_terminal(void)
 	term.c_cc[VMIN] = 1;
 	term.c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	tputs(tgetstr("ti", NULL), 1, ft_putc);
 	tputs(tgetstr("vi", NULL), 1, ft_putc);
 	return (SUCCESS);
 }
