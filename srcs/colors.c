@@ -1,4 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/29 14:22:13 by kesaint-          #+#    #+#             */
+/*   Updated: 2019/06/29 14:24:22 by kesaint-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_select.h"
 
 static void		print_color(int options)
 {
@@ -16,7 +28,7 @@ static void		print_color(int options)
 		return (ft_putstr("35m"));
 	if ((options & OPT_CYAN) == OPT_CYAN)
 		return (ft_putstr("36m"));
-	ft_putstr("0m");
+	ft_putstr("1m");
 }
 
 static void		print_weight(int options)
@@ -38,7 +50,7 @@ static char		*get_extension(char *filename)
 
 	extension = NULL;
 	while ((filename = ft_strchr(filename,'.')))
-		extenion = ++filename;
+		extension = ++filename;
 	return (extension);
 }
 	
@@ -47,23 +59,27 @@ int				get_colors(char *filename, int index)
 	char	*extension;
 	int		flags;
 
-	flags = 0;
+	flags = 0;;
+	if (g_term.cursor == index)
+		flags |= OPT_UNDERLINE;
 	if (is_selected(index))
 		flags |= OPT_RE_SCREEN;
 	if (!(extension == get_extension(filename)))
 		return (flags);
-	if (*extenion == 'c' && !*(extension + 1))
-		opts |= OPT_YELLOW;.
+	if (*extension == 'c' && !*(extension + 1))
+		flags |= OPT_YELLOW;
 	if (*extension == 'o' && !*(extension + 1))
-		opts |= OPT_MAGENTA;
+		flags |= OPT_MAGENTA;
 	if (*extension == 'h' && !*(extension + 1))
-		opts |= OPT_CYAN;
+		flags |= OPT_CYAN;
 	return (flags);
 }
 
-void			display_color(int opts)
+void			display_color(int flags)
 {
+	if (!flags)
+		return ;
 	ft_putchar('\e');
-	print_weight(opts);
-	print_color(ops);
+	print_weight(flags);
+	print_color(flags);
 }
