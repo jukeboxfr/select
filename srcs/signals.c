@@ -12,10 +12,24 @@
 
 #include "ft_select.h"
 
-static void	resize_handler(int sig)
+static void	update_handler(int sig)
 {
 	clear_terminal();
 	display_files();
+}
+
+static void recover_handler(int sig)
+{
+	if (set_terminal() < 0)
+		stop(0);
+	update_handler(0);
+	listen_signals();
+}
+	
+static void suspend_handler(int sig)
+{
+	reset_terminal();
+	signal(SIGSTOP, SIG_DFL);
 }
 
 void		listen_signals(void)
@@ -25,5 +39,7 @@ void		listen_signals(void)
 	signal(SIGSTOP, stop);
 	signal(SIGKILL, stop);
 	signal(SIGQUIT, stop);
-	signal(SIGWINCH, resize_handler);
+	signal(SIGWINCH, update_handler);
+	signal(SIGSTOP, suspend_handler);
+	signal(SIGCONT, recover_handler);
 }

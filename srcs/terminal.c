@@ -1,25 +1,12 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   terminal.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/22 16:20:05 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/22 16:27:15 by kesaint-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_select.h"
 
 void	clear_terminal(void)
 {
-	char		*str;
+	char *str;
 
 	str = tgetstr("cl", NULL);
 	tputs(str, 1, ft_putc);
 }
-
 void	reset_terminal(void)
 {
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_term.term);
@@ -47,7 +34,7 @@ int		set_terminal(void)
 	term.c_lflag &= ~(ICANON | ECHO);
 	term.c_cc[VMIN] = 1;
 	term.c_cc[VTIME] = 0;
-	tcsetattr(STDIN_FILENO, TCSADRAIN, &term);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	tputs(tgetstr("ti", NULL), 1, ft_putc);
 	tputs(tgetstr("vi", NULL), 1, ft_putc);
 	return (SUCCESS);

@@ -47,17 +47,17 @@ static void		print_selected(void)
 	int	i;
 
 	i = 0;
-	while (i < g_term.argc)
+	reset_terminal();
+	while (i < g_term.count)
 	{
-		if (is_selected(i))
-		{
-			ft_putstr(g_term.argv[i]);
-			if ((i + 1) < g_term.argc)
-				ft_putchar(' ');
-		}
+		ft_putstr(g_term.argv[g_term.selected[i]]);
 		i++;
+		if (i < g_term.count)
+			ft_putchar(' ');
 	}
-	stop(0);
+	if (g_term.selected)
+		free(g_term.selected);
+	exit(EXIT_SUCCESS);
 }
 
 void			ft_select(void)
