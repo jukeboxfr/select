@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 14:22:13 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/29 14:24:22 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/23 15:15:14 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void		print_color(int options)
 	selected = (options & OPT_RE_SCREEN) == OPT_RE_SCREEN;
 	if ((options & OPT_RED) == OPT_RED)
 		return (ft_putstr(selected ? "30;41m" : "31m"));
-	if ((options & OPT_GREEN) == OPT_GREEN)	
+	if ((options & OPT_GREEN) == OPT_GREEN)
 		return (ft_putstr(selected ? "30;42m" : "32m"));
 	if ((options & OPT_YELLOW) == OPT_YELLOW)
 		return (ft_putstr(selected ? "30;43m" : "33m"));
@@ -48,13 +48,13 @@ int				get_colors(char *filename, int index)
 	char	*extension;
 	int		flags;
 
-	flags = 0;;
+	flags = 0;
 	if (g_term.cursor == index)
 		flags |= OPT_UNDERLINE;
 	if (is_selected(index))
 		flags |= OPT_RE_SCREEN;
 	extension = NULL;
-	while ((filename = ft_strchr(filename,'.')))
+	while ((filename = ft_strchr(filename, '.')))
 		extension = ++filename;
 	if (!extension)
 		return (flags | OPT_YELLOW);
