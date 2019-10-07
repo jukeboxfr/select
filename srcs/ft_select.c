@@ -20,10 +20,32 @@ void			stop(int sig)
 	exit(EXIT_SUCCESS);
 }
 
+int		move_begin(void)
+{
+	int				col;
+
+	col = (g_term.cursor % g_term.grid.cols);
+	if ((col + 1) > g_term.argc)
+		return (g_term.cursor);
+	return (col + 1);
+}
+
+int		move_end(void)
+{
+	int				col;
+
+	col = (g_term.cursor % g_term.grid.cols);
+	if ((col + g_term.grid.rows) > g_term.argc)
+		return (g_term.cursor);
+	return (col + g_term.grid.rows);
+}
+
 void			move_cursor(long key)
 {
 	int		items;
 
+	if (!g_term.grid.cols)
+		return ;
 	items = g_term.grid.cols * g_term.grid.rows;
 	if (key == RIGHT_KEY)
 		g_term.cursor = g_term.cursor + 1 < g_term.argc
@@ -32,12 +54,12 @@ void			move_cursor(long key)
 		g_term.cursor = g_term.cursor - 1 > -1
 			? (g_term.cursor - 1) : g_term.argc - 1;
 	if (key == TOP_KEY)
-		g_term.cursor -= g_term.cursor - g_term.grid.cols > -1
-			? g_term.grid.cols : 0;
+		g_term.cursor = g_term.cursor - g_term.grid.cols > -1
+			? (g_term.cursor - g_term.grid.cols) : move_end();
 	if (key == DOWN_KEY)
 		g_term.cursor = g_term.cursor + g_term.grid.cols < g_term.argc
 			? (g_term.cursor + g_term.grid.cols)
-			: (g_term.argc - g_term.cursor);
+			: move_begin();
 	clear_terminal();
 	display_files();
 }
