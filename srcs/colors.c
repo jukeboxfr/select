@@ -12,35 +12,40 @@
 
 #include "ft_select.h"
 
+static void		print_stderr(char *str)
+{
+	return (ft_putstr_fd(str, STDERR_FILENO));
+}
+
 static void		print_color(int options)
 {
 	int		selected;
 
 	selected = (options & OPT_RE_SCREEN) == OPT_RE_SCREEN;
 	if ((options & OPT_RED) == OPT_RED)
-		return (ft_putstr(selected ? "30;41m" : "31m"));
+		return (print_stderr(selected ? "30;41m" : "31m"));
 	if ((options & OPT_GREEN) == OPT_GREEN)
-		return (ft_putstr(selected ? "30;42m" : "32m"));
+		return (print_stderr(selected ? "30;42m" : "32m"));
 	if ((options & OPT_YELLOW) == OPT_YELLOW)
-		return (ft_putstr(selected ? "30;43m" : "33m"));
+		return (print_stderr(selected ? "30;43m" : "33m"));
 	if ((options & OPT_BLUE) == OPT_BLUE)
-		return (ft_putstr(selected ? "30;44m" : "34m"));
+		return (print_stderr(selected ? "30;44m" : "34m"));
 	if ((options & OPT_MAGENTA) == OPT_MAGENTA)
-		return (ft_putstr(selected ? "30;45m" : "35m"));
+		return (print_stderr(selected ? "30;45m" : "35m"));
 	if ((options & OPT_CYAN) == OPT_CYAN)
-		return (ft_putstr(selected ? "30;46m" : "36m"));
-	ft_putstr("1m");
+		return (print_stderr(selected ? "30;46m" : "36m"));
+	print_stderr("1m");
 }
 
 static void		print_weight(int options)
 {
 	if ((options & OPT_BOLD) == OPT_BOLD)
-		return (ft_putstr("[1;"));
+		return (print_stderr("[1;"));
 	if ((options & OPT_ITALIC) == OPT_ITALIC)
-		return (ft_putstr("[3;"));
+		return (print_stderr("[3;"));
 	if ((options & OPT_UNDERLINE) == OPT_UNDERLINE)
-		return (ft_putstr("[4;"));
-	ft_putstr("[0;");
+		return (print_stderr("[4;"));
+	print_stderr("[0;");
 }
 
 int				get_colors(char *filename, int index)
@@ -73,7 +78,7 @@ void			display_color(int flags)
 {
 	if (!flags)
 		return ;
-	ft_putchar('\e');
+	ft_putchar_fd('\e', STDERR_FILENO);
 	print_weight(flags);
 	print_color(flags);
 }

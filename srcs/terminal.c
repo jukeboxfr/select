@@ -12,6 +12,7 @@ void	reset_terminal(void)
 	tputs(tgetstr("ve", NULL), 1, ft_putc);
 	g_term.term.c_lflag |= (ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_term.term);
+	ft_putstr_fd("\033[?1049l", STDERR_FILENO);
 }
 
 int		set_terminal(void)
@@ -21,14 +22,15 @@ int		set_terminal(void)
 
 	if (!(var = getenv("TERM")))
 	{
-		ft_putstr("La variable d'environnement TERM est manquante\n");
+		ft_putstr_fd("La variable d'environnement TERM est manquante\n", 2);
 		return (ERROR);
 	}
 	if (tgetent(NULL, var) < 1)
 	{
-		ft_putstr("The specified terminal type was not found\n");
+		ft_putstr_fd("The specified terminal type was not found\n", 2);
 		return (ERROR);
 	}
+	ft_putstr_fd("\033[?1049h\033[H", STDERR_FILENO);
 	tcgetattr(STDIN_FILENO, &g_term.term);
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ICANON | ECHO);
@@ -36,5 +38,6 @@ int		set_terminal(void)
 	term.c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	tputs(tgetstr("vi", NULL), 1, ft_putc);
+	tputs(tgetstr("ti", NULL), 1, ft_putc);
 	return (SUCCESS);
 }

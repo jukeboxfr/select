@@ -16,7 +16,7 @@ int				main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-		ft_putstr("Usage: file1 [file2...]\n");
+		ft_putstr_fd("Usage: file1 [file2...]\n", STDERR_FILENO);
 		return (1);
 	}
 	if (set_terminal() < 0)

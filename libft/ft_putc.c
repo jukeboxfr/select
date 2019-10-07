@@ -14,6 +14,6 @@
 
 int	ft_putc(int c)
 {
-	ft_putchar((char)c);
+	ft_putchar_fd((char)c, STDERR_FILENO);
 	return (c);
 }

@@ -65,6 +65,7 @@ typedef struct		s_term {
 	int				count;
 	int				*selected;
 	int				cursor;
+	int				cols;
 	int				argc;
 	char			**argv;
 	t_grid			grid;
