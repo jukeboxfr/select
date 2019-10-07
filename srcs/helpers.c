@@ -99,6 +99,8 @@ void				remove_args(void)
 	g_term.argc--;
 	if (g_term.cursor > (g_term.argc - 1))
 		g_term.cursor = g_term.argc - 1;
+	if (!g_term.argc)
+		return (stop(0));
 	display_files();
 }
 

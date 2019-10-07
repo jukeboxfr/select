@@ -19,6 +19,7 @@ INCLUDES = -I ./includes -I $(LDIR)includes
 CFLAGS = -g -Wall -Werror -Wextra
 FILES = main.c ft_select.c terminal.c \
 		signals.c display.c helpers.c \
+		display_error.c \
 		colors.c
 SRCS = $(addprefix $(SDIR), $(FILES))
 OBJS = $(addprefix $(ODIR), $(FILES:.c=.o))

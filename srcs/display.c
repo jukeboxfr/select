@@ -120,6 +120,8 @@ void			display_files(void)
 	int		row;
 
 	update_grid();
+	if (!g_term.grid.cols)
+		return (display_err_small());
 	set_conf(&row, &index);
 	while (index < g_term.argc && row)
 	{
