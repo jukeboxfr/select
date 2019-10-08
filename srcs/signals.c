@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:21:59 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/23 15:15:46 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/10/08 12:14:04 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static void	update_handler(int sig)
 	display_files();
 }
 
-static void recover_handler(int sig)
+static void	recover_handler(int sig)
 {
 	if (set_terminal() < 0)
 		stop(0);
 	update_handler(0);
 	listen_signals();
 }
-	
-static void suspend_handler(int sig)
+
+static void	suspend_handler(int sig)
 {
 	reset_terminal();
 	signal(SIGSTOP, SIG_DFL);

@@ -6,13 +6,13 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 14:20:54 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/22 16:24:26 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/10/08 12:15:27 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void			stop(int sig)
+void		stop(int sig)
 {
 	if (g_term.selected)
 		free(g_term.selected);
@@ -20,27 +20,26 @@ void			stop(int sig)
 	exit(EXIT_SUCCESS);
 }
 
-int		move_begin(void)
+int			move_begin(void)
 {
-	int				col;
-
-	col = (g_term.cursor % g_term.grid.cols);
-	if ((col + 1) > g_term.argc)
-		return (g_term.cursor);
-	return (col + 1);
+	if (!g_term.cursor)
+		return (0);
+	return ((g_term.cursor % g_term.grid.cols) + 1);
 }
 
-int		move_end(void)
+int			move_end(void)
 {
-	int				col;
+	int				cursor;
 
-	col = (g_term.cursor % g_term.grid.cols);
-	if ((col + g_term.grid.rows) > g_term.argc)
-		return (g_term.cursor);
-	return (col + g_term.grid.rows);
+	if (!g_term.cursor)
+		return (g_term.argc - 1);
+	cursor = g_term.grid.rows - (g_term.cursor / g_term.grid.cols);
+	cursor *= g_term.grid.cols;
+	cursor += (g_term.cursor - 1);
+	return (cursor);
 }
 
-void			move_cursor(long key)
+void		move_cursor(long key)
 {
 	int		items;
 
@@ -64,7 +63,7 @@ void			move_cursor(long key)
 	display_files();
 }
 
-static void		print_selected(void)
+static void	print_selected(void)
 {
 	int	i;
 
@@ -82,7 +81,7 @@ static void		print_selected(void)
 	exit(EXIT_SUCCESS);
 }
 
-void			ft_select(void)
+void		ft_select(void)
 {
 	long	key;
 

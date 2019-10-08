@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 14:18:20 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/29 16:59:07 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/10/08 12:21:49 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,7 @@ static void		update_grid(void)
 	}
 }
 
-void
-debugger(void) {
-	fprintf(stderr, "[+] Cursor: %i\n", g_term.cursor);
-	fprintf(stderr, "[+] Selected (%i): ", g_term.count);
-
-	int	i = 0;
-	while (i < g_term.count) {
-		fprintf(stderr, "%i ", g_term.selected[i]);
-		i++;
-	}
-	fprintf(stderr, "\n");
-	fflush(stderr);
-}
-
-static void		set_conf(int *max_row, int *start_index)
+static void		set_conf(int *max_row, int *start_i)
 {
 	struct winsize	w;
 	int				row;
@@ -95,7 +81,7 @@ static void		set_conf(int *max_row, int *start_index)
 	row = (g_term.cursor / g_term.grid.cols);
 	if (g_term.grid.rows <= w.ws_row)
 	{
-		*start_index = 0;
+		*start_i = 0;
 		*max_row = g_term.grid.rows;
 		return ;
 	}
@@ -107,33 +93,30 @@ static void		set_conf(int *max_row, int *start_index)
 	}
 	else
 		*max_row = win_rows;
-	*start_index = (row * g_term.grid.cols);
+	*start_i = (row * g_term.grid.cols);
 }
-
 
 void			display_files(void)
 {
-	int		index;
-	int		colors;
-	int		padding;
-	struct  winsize	w;
-	int		row;
+	int				i;
+	int				colors;
+	int				padding;
+	struct winsize	w;
+	int				row;
 
 	update_grid();
 	if (!g_term.grid.cols)
 		return (display_err_small());
-	set_conf(&row, &index);
-	while (index < g_term.argc && row)
+	set_conf(&row, &i);
+	while (i < g_term.argc && row)
 	{
-		colors = get_colors(g_term.argv[index], index);
+		colors = get_colors(g_term.argv[i], i);
 		display_color(colors);
-		ft_putstr_fd(g_term.argv[index], STDERR_FILENO);
+		ft_putstr_fd(g_term.argv[i], STDERR_FILENO);
 		if (colors)
 			ft_putstr_fd("\033[0m", STDERR_FILENO);
-		padding = g_term.grid.padding - ft_strlen(g_term.argv[index]);
-		index++;
-		if (index == g_term.argc
-			|| !(!g_term.grid.cols || (index % g_term.grid.cols)))
+		padding = g_term.grid.padding - ft_strlen(g_term.argv[i++]);
+		if (i == g_term.argc || !(!g_term.grid.cols || (i % g_term.grid.cols)))
 		{
 			ft_putchar_fd('\n', STDERR_FILENO);
 			row--;
@@ -142,5 +125,4 @@ void			display_files(void)
 		while (padding-- > 0)
 			ft_putchar_fd(' ', STDERR_FILENO);
 	}
-	//debugger();
 }

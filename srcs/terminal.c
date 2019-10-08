@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   terminal.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/08 12:14:21 by kesaint-          #+#    #+#             */
+/*   Updated: 2019/10/08 12:14:22 by kesaint-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
 void	clear_terminal(void)
 {
-	char *str;
+	char	*str;
 
 	str = tgetstr("cl", NULL);
 	tputs(str, 1, ft_putc);
 }
+
 void	reset_terminal(void)
 {
 	tputs(tgetstr("ve", NULL), 1, ft_putc);
