@@ -90,6 +90,8 @@ void				stop(int sig);
 void				ft_select(void);
 void				display_files(void);
 
+void				print_padding(int padding);
+
 void				display_err_small(void);
 int					get_colors(char *filename, int index);
 void				display_color(int opts);

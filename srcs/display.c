@@ -100,7 +100,6 @@ void			display_files(void)
 {
 	int				i;
 	int				colors;
-	int				padding;
 	struct winsize	w;
 	int				row;
 
@@ -115,14 +114,12 @@ void			display_files(void)
 		ft_putstr_fd(g_term.argv[i], STDERR_FILENO);
 		if (colors)
 			ft_putstr_fd("\033[0m", STDERR_FILENO);
-		padding = g_term.grid.padding - ft_strlen(g_term.argv[i++]);
 		if (i == g_term.argc || !(!g_term.grid.cols || (i % g_term.grid.cols)))
 		{
 			ft_putchar_fd('\n', STDERR_FILENO);
 			row--;
 			continue ;
 		}
-		while (padding-- > 0)
-			ft_putchar_fd(' ', STDERR_FILENO);
+		print_padding(g_term.grid.padding - ft_strlen(g_term.argv[i++]));
 	}
 }

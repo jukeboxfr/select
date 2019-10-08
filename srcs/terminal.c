@@ -12,6 +12,14 @@
 
 #include "ft_select.h"
 
+void	stop(int sig)
+{
+	if (g_term.selected)
+		free(g_term.selected);
+	reset_terminal();
+	exit(EXIT_SUCCESS);
+}
+
 void	clear_terminal(void)
 {
 	char	*str;

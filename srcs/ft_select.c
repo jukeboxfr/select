@@ -12,14 +12,6 @@
 
 #include "ft_select.h"
 
-void		stop(int sig)
-{
-	if (g_term.selected)
-		free(g_term.selected);
-	reset_terminal();
-	exit(EXIT_SUCCESS);
-}
-
 int			move_begin(void)
 {
 	if (!g_term.cursor)
